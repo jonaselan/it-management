@@ -45,3 +45,12 @@ $factory->define(itmanagement\Contract::class, function (Faker $faker) {
         }
     ];
 });
+
+$factory->define(itmanagement\Project::class, function (Faker $faker) {
+    return [
+        'name' => $faker->firstName,
+        'client_id' => function () {
+            return factory(itmanagement\Client::class)->create()->id;
+        }
+    ];
+});
