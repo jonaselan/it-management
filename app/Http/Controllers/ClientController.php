@@ -12,6 +12,6 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return "sim";
+        return "client home";
     }
 }
