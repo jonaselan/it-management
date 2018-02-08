@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class ContractSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,10 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            ClientSeeder::class,
-            ContractSeeder::class
-        ]);
-
+        factory(itmanagement\Contract::class)->create();
     }
 }

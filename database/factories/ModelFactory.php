@@ -33,3 +33,15 @@ $factory->define(itmanagement\Client::class, function (Faker $faker) {
         'phone' => $faker->phoneNumber,
     ];
 });
+
+$factory->define(itmanagement\Contract::class, function (Faker $faker) {
+    return [
+        'object' => $faker->firstName,
+        'validity' => $faker->date(),
+        'value' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 10),
+        'payment' => $faker->randomDigit,
+        'client_id' => function () {
+            return factory(itmanagement\Client::class)->create()->id;
+        }
+    ];
+});
