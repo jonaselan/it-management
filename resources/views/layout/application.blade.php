@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-        <link href="/css/app.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{mix('css/app.css')}}">
         <link href="/css/custom.css" rel="stylesheet">
         <link href="/css/welcome.css" rel="stylesheet">
     </head>
