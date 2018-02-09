@@ -16,39 +16,35 @@ class ContractController extends Controller
         return view('contract.index')->withContracts($contracts);
     }
 
-    /*public function show($id){
-        // INPUT for get element by request parameters
-        // $id = Request::input('id', '0');
-        // in this case you can use ROUTE instead, for get on route
-        $response = Product::find($id);
-        return view('product.show')->with('p', $response);
-    }
-
-    public function edit($id){
-        $product = Product::find($id);
-        return view('product.edit', compact('product'));
-    }
-
-    public function update(ProductsRequest $request, $id){
-        $product = Product::find($id)->update($request->all());
-        return redirect()
-            ->action('ProductController@index');
-    }
-
     public function create(){
-        return view('product.create');
+        return view('contract.create');
     }
 
-    public function store(ProductsRequest $request){
-        Product::create($request->all());
+    public function store(ContractRequest $request){
+        Contract::create($request->all());
         return redirect()
-            ->action('ProductController@index')
-            ->withInput(Request::only('name'));
+            ->action('ContractController@index');
     }
 
     public function destroy($id){
-        Product::find($id)->delete();
+        Contract::find($id)->delete();
         return redirect()
-            ->action('ProductController@index');
-    }*/
+            ->action('ContractController@index');
+    }
+
+    public function edit($id){
+        $contract = Contract::find($id);
+        return view('contract.edit', compact('contract'));
+    }
+
+    public function update(ContractRequest $request, $id){
+        Contract::find($id)->update($request->all());
+        return redirect()
+            ->action('ContractController@index');
+    }
+
+//    public function show($id){
+//        $response = Contract::find($id);
+//        return view('contract.show')->with('p', $response);
+//    }
 }
