@@ -1,6 +1,6 @@
 @extends('layout.application')
 @section('content')
-    @if($contracts)
+    @if($projects)
         <div class="row">
             <div class="col-md-6">
                 <h1>Meus Contratos</h1>
@@ -9,44 +9,37 @@
               <a href="{{route('new_evaluation')}}">Criar avaliação</a>
             </div>--}}
             <div class="col-md-3">
-                <a href="{{ action('ContractController@create')}}">Criar contrato</a>
+                <a href="{{ action('ProjectController@create')}}">Criar projeto</a>
             </div>
         </div>
         <table class="table table-striped table-bordered table-hover">
             <tr>
-                <th>Objeto</th>
-                <th>Vigência</th>
-                <th>Valor</th>
+                <th>Nome</th>
+                <th>Data de início</th>
                 <th>Cliente</th>
                 <th>Opções</th>
             </tr>
-            @foreach($contracts as $c)
+            @foreach($projects as $p)
                 <tr>
-                    <td>{{ $c->object or 'nenhum informado'}} </td>
-                    <td>{{ $c->validity }} </td>
-                    <td>{{ $c->value }}</td>
-                    <td>{{ \itmanagement\Client::find($c->client_id)->name }}</td>
+                    <td>{{ $p->name }} </td>
+                    <td>{{ $p->created_at->format('l j F Y H:i:s')}} </td>
+                    <td>{{ \itmanagement\Client::find($p->client_id)->name }}</td>
                     <td>
-                        <a href="{{action('ContractController@show', $c->id)}}">
+                        <a href="{{action('ProjectController@show', $p->id)}}">
                             <span class="glyphicon glyphicon-search icon-option" aria-hidden="true"></span>
                         </a>
-                        <a href="{{action('ContractController@edit', $c->id)}}">
+                        <a href="{{action('ProjectController@edit', $p->id)}}">
                             <span class="glyphicon glyphicon-pencil icon-option"></span>
                         </a>
-                        <a href="{{action('ContractController@destroy', $c->id)}}">
+                        <a href="{{action('ProjectController@destroy', $p->id)}}">
                             <span class="glyphicon glyphicon-trash icon-option"></span>
                         </a>
                     </td>
                 </tr>
             @endforeach
         </table>
-        {{ $contracts->links() }}
-        {{--<h4>
-          <span class="label label-danger pull-right">
-            Um ou menos itens no estoque
-          </span>
-        </h4>--}}
+        {{ $projects->links() }}
     @else
-        <h2> Você não tem contratos </h2>
+        <h2> Você não tem projetos </h2>
     @endif
 @stop

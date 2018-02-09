@@ -1,4 +1,3 @@
-{!! Form::token() !!}
 <div class="form-group">
     {!! Form::label('object', 'Objeto:') !!}
     {!! Form::text('object', null, ['class'=>'form-control']) !!}

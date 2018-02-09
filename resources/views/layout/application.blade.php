@@ -21,7 +21,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @guest
                         <li><a href="{{ action('ContractController@index') }}">Contratos</a></li>
-                        {{--<li><a href="{{ action('ProjectController@index') }}">Projetos</a></li>--}}
+                        <li><a href="{{ action('ProjectController@index') }}">Projetos</a></li>
                     @else
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Registrar</a></li>
