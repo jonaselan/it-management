@@ -2,11 +2,10 @@
 
 namespace itmanagement\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use itmanagement\Contract;
-use Illuminate\Auth\Middleware\Authenticate;
 use itmanagement\Http\Requests\ContractRequest;
 use Request;
+use Auth;
 use Debugbar;
 
 class ContractController extends Controller
@@ -18,7 +17,9 @@ class ContractController extends Controller
 
 
     public function index(){
-        $contracts = Contract::simplePaginate(7);
+        $contracts = Contract::where('client_id', Auth::user()->client_id)
+                                ->simplePaginate(7);
+
         return view('contract.index')->withContracts($contracts);
     }
 

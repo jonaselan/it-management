@@ -6,12 +6,6 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    /**
-     * Show the profile for the given user.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function __construct()
     {
         $this->middleware('auth');

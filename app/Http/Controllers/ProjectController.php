@@ -2,10 +2,9 @@
 
 namespace itmanagement\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use itmanagement\Project;
-use Illuminate\Auth\Middleware\Authenticate;
 use itmanagement\Http\Requests\ProjectRequest;
+use Auth;
 use Request;
 use Debugbar;
 
@@ -17,7 +16,9 @@ class ProjectController extends Controller
     }
 
     public function index(){
-        $projects = Project::simplePaginate(7);
+        $projects = Project::where('client_id', Auth::user()->client_id)
+                            ->simplePaginate(7);
+
         return view('project.index')->withProjects($projects);
     }
 
