@@ -19,7 +19,7 @@ class CreateContractsTable extends Migration
             $table->date('validity');
             $table->decimal('value', 5, 2);
             $table->integer('payment');
-            $table->integer('client_id')->unsigned();;
+            $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });

@@ -5,47 +5,76 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('itmanament.name', 'IT Management') }}</title>
         <link rel="stylesheet" type="text/css" href="{{mix('css/app.css')}}">
         <link href="/css/custom.css" rel="stylesheet">
         <link href="/css/welcome.css" rel="stylesheet">
     </head>
     <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{{  action('ClientController@index') }}">
-                        IT Management
-                    </a>
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    @guest
-                        <li><a href="{{ action('ContractController@index') }}">Contratos</a></li>
-                        <li><a href="{{ action('ProjectController@index') }}">Projetos</a></li>
-                    @else
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Registrar</a></li>
-                        <li>
-                            <a href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                       document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{{  action('ClientController@index') }}">
+                    {{ config('itmanament.name', 'IT Management') }}
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @guest
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ action('ContractController@index') }}">Contratos</a></li>
+                                <li><a href="{{ action('ProjectController@index') }}">Projetos</a></li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                     @endguest
                 </ul>
             </div>
-        </nav>
-        <div class="container">
-            @yield('content')
         </div>
-        <footer class="footer">
-            <p>© Larastock.</p>
-        </footer>
-        <script src="js/app.js" type="text/javascript"></script>
+    </nav>
+
+    <div class="container">
+        @yield('content')
+    </div>
+
+    <footer class="footer">
+        <p>© IT Management</p>
+    </footer>
+
+    <script src="js/app.js" type="text/javascript"></script>
     </body>
 </html>

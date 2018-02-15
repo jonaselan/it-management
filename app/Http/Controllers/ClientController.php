@@ -2,6 +2,8 @@
 
 namespace itmanagement\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class ClientController extends Controller
 {
     /**
@@ -10,8 +12,13 @@ class ClientController extends Controller
      * @param  int  $id
      * @return Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return "client home";
+        return view("clients.index");
     }
 }

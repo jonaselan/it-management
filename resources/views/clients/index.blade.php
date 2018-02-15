@@ -2,6 +2,6 @@
 
 @section('content')
     <h1>
-        home application
+       client home
     </h1>
 @stop

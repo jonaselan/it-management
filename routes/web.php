@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+
 
 Route::get('/clients', 'ClientController@index');
 
@@ -34,5 +34,5 @@ Route::group(['prefix'=>'projects', 'where'=>['id'=>'[0-9]+']], function() {
     Route::post('', 'ProjectController@store');
     Route::get('delete/{id}', 'ProjectController@destroy');
 });
-
 Auth::routes();
+Route::get('/', 'HomeController@index');

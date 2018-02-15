@@ -2,12 +2,14 @@
 
 namespace itmanagement\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class HomeController extends Controller
 {
     /**
-     * Initial page for application
+     * Show the application dashboard.
      *
-     * @return view
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {

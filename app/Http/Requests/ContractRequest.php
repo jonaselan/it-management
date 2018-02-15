@@ -25,7 +25,8 @@ class ContractRequest extends FormRequest
     {
         return [
             'object' => 'required|max:100',
-            'value' => 'required|numeric|max:200'
+            'value' => 'required|numeric|max:200',
+            'client_id' => 'required'
         ];
     }
 }
