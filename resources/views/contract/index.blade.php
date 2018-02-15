@@ -23,7 +23,7 @@
             @foreach($contracts as $c)
                 <tr>
                     <td>{{ $c->object or 'nenhum informado'}} </td>
-                    <td>{{ $c->validity }} </td>
+                    <td>{{ $c->validity_ptbr() }} </td>
                     <td>{{ $c->value }}</td>
                     <td>{{ \itmanagement\Client::find($c->client_id)->name }}</td>
                     <td>

@@ -3,7 +3,7 @@
     @if($projects)
         <div class="row">
             <div class="col-md-6">
-                <h1>Meus Contratos</h1>
+                <h1>Meus Projetos</h1>
             </div>
             {{--<div class="col-md-3">
               <a href="{{route('new_evaluation')}}">Criar avaliação</a>
@@ -22,7 +22,7 @@
             @foreach($projects as $p)
                 <tr>
                     <td>{{ $p->name }} </td>
-                    <td>{{ $p->created_at->format('l j F Y H:i:s')}} </td>
+                    <td>{{ $p->created_at_ptbr() }} </td>
                     <td>{{ \itmanagement\Client::find($p->client_id)->name }}</td>
                     <td>
                         <a href="{{action('ProjectController@show', $p->id)}}">

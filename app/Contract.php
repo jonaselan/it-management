@@ -14,4 +14,8 @@ class Contract extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function validity_ptbr(){
+        return date('d-m-Y', strtotime($this->validity));
+    }
+
 }

@@ -13,4 +13,8 @@ class Project extends Model
     public function client(){
         return $this->belongsTo(Client::class);
     }
+
+    public function created_at_ptbr(){
+        return $this->created_at->format('d-m-Y');
+    }
 }
