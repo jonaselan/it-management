@@ -6,7 +6,6 @@ use itmanagement\Contract;
 use itmanagement\Http\Requests\ContractRequest;
 use Request;
 use Auth;
-use Debugbar;
 
 class ContractController extends Controller
 {
@@ -14,7 +13,6 @@ class ContractController extends Controller
     {
         $this->middleware('auth');
     }
-
 
     public function index(){
         $contracts = Contract::where('client_id', Auth::user()->client_id)
@@ -28,12 +26,14 @@ class ContractController extends Controller
     }
 
     public function store(ContractRequest $request){
+        flash("Contrato criado com sucesso!");
         Contract::create($request->all());
         return redirect()
             ->action('ContractController@index');
     }
 
     public function destroy($id){
+        flash("Contrato removido com sucesso!");
         Contract::find($id)->delete();
         return redirect()
             ->action('ContractController@index');
@@ -45,6 +45,7 @@ class ContractController extends Controller
     }
 
     public function update(ContractRequest $request, $id){
+        flash("Contrato editado com sucesso!");
         Contract::find($id)->update($request->all());
         return redirect()
             ->action('ContractController@index');

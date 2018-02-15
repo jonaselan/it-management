@@ -176,6 +176,7 @@ return [
 
         // external libs
         Barryvdh\Debugbar\ServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 

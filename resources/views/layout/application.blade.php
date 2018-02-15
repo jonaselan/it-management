@@ -68,13 +68,17 @@
     </nav>
 
     <div class="container">
+        @include('flash::message')
         @yield('content')
     </div>
 
     <footer class="footer">
         <p>© IT Management</p>
     </footer>
+    </body>
 
     <script src="js/app.js" type="text/javascript"></script>
-    </body>
+    <script>
+        $('div.alert').not('.alert-important').delay(4000).fadeOut(450);
+    </script>
 </html>
