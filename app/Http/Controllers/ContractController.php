@@ -11,6 +11,12 @@ use Debugbar;
 
 class ContractController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index(){
         $contracts = Contract::simplePaginate(7);
         return view('contract.index')->withContracts($contracts);

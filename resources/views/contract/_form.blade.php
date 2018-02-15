@@ -14,11 +14,7 @@
     {!! Form::label('payment', 'Pagamento:') !!}
     {!! Form::number('payment', null, ['class'=>'form-control']) !!}
 </div>
-<div class="form-group">
-    {{-- TODO: use client_id from logged user --}}
-    {!! Form::label('client_id', 'Cliente:') !!}
-    {!! Form::number('client_id', 1, ['class'=>'form-control']) !!}
-</div>
+    {!! Form::number('client_id', Auth::user()->client_id, ['class'=>'hidden']) !!}
 <div class="form-group">
     {!! Form::submit('Finalizar', ['class'=>'btn btn-primary']) !!}
 </div>
