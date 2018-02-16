@@ -6,7 +6,7 @@ use itmanagement\Project;
 use itmanagement\Http\Requests\ProjectRequest;
 use Auth;
 use Request;
-use Debugbar;
+use itmanagement\Repositories\Contracts\iProjectRepository;
 
 class ProjectController extends Controller
 {
@@ -15,11 +15,17 @@ class ProjectController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        $projects = Project::where('client_id', Auth::user()->client_id)
-                            ->simplePaginate(7);
+    public function index(iProjectRepository $repository){
+        $projects = $repository->findBy(
+                    [['client_id', '=', Auth::user()->client_id],
+                     ['id', '=', 2]]);
 
-        return view('project.index')->withProjects($projects);
+//            Project::where('client_id', Auth::user()->client_id)
+//                            ->simplePaginate(7);
+
+//        return view('project.index')->withProjects($projects);
+        return view('project.index')
+                    ->withProjects($projects);
     }
 
     public function create(){
@@ -50,7 +56,7 @@ class ProjectController extends Controller
     }
 
 //    public function show($id){
-//        $response = Project::find($id);
+//        $response = Projects::find($id);
 //        return view('project.show')->with('p', $response);
 //    }
 }
