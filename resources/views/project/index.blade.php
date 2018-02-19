@@ -38,7 +38,7 @@
                 </tr>
             @endforeach
         </table>
-        {{--{{ $projects->links() }}--}}
+        {{ $projects->links() }}
     @else
         <h2> Você não tem projetos </h2>
     @endif

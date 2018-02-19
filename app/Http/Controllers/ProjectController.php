@@ -16,16 +16,13 @@ class ProjectController extends Controller
     }
 
     public function index(iProjectRepository $repository){
-        $projects = $repository->findBy(
-                    [['client_id', '=', Auth::user()->client_id],
-                     ['id', '=', 2]]);
+        // If use repository, remember to get element with ->get(), and the end
+        $projects = $repository
+                        ->find([['client_id', '=', Auth::user()->client_id]],
+                                [['created_at', 'asc']]);
 
-//            Project::where('client_id', Auth::user()->client_id)
-//                            ->simplePaginate(7);
-
-//        return view('project.index')->withProjects($projects);
         return view('project.index')
-                    ->withProjects($projects);
+                    ->withProjects($projects->simplePaginate(10));
     }
 
     public function create(){
