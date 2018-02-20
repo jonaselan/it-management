@@ -33,7 +33,7 @@
                         <a href="{{action('ContractController@edit', $c->id)}}">
                             <span class="glyphicon glyphicon-pencil icon-option"></span>
                         </a>
-                        <a href="{{action('ContractController@destroy', $c->id)}}">
+                        <a href="{{action('ContractController@destroy', $c->id)}}" onclick="return confirm('Tem certeza?');">
                             <span class="glyphicon glyphicon-trash icon-option"></span>
                         </a>
                     </td>
