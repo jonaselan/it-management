@@ -48,6 +48,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ action('ContractController@index') }}">Contratos</a></li>
                                 <li><a href="{{ action('ProjectController@index') }}">Projetos</a></li>
+                                <li><a href="{{ action('SystemController@index') }}">Sistemas</a></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

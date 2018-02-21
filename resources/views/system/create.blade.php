@@ -1,6 +1,6 @@
 @extends('layout.application')
 @section('content')
-  <h1>Editar contrato</h1>
+  <h1>Novo sistema</h1>
 
   <div class="container">
     @if ($errors->any())
@@ -11,8 +11,8 @@
       </ul>
     @endif
 
-    {{ Form::model($contract, ['method' => 'put', 'route' => ['contracts.update', $contract->id]]) }}
-        @include('contract._form')
+    {!! Form::open(['url'=>"systems", 'method'=>'post'])!!}
+        @include('system._form')
     {!! Form::close() !!}
   </div>
 @stop

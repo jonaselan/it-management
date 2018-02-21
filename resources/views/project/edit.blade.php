@@ -1,6 +1,6 @@
 @extends('layout.application')
 @section('content')
-  <h1>Novo projeto</h1>
+  <h1>Editar projeto</h1>
 
   <div class="container">
     @if ($errors->any())

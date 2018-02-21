@@ -17,4 +17,8 @@ class Project extends Model
     public function created_at_ptbr(){
         return $this->created_at->format('d-m-Y');
     }
+
+    public function systems(){
+        return $this->hasMany(System::class);
+    }
 }

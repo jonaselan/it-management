@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
+| routes are loaded by the RouteSystemProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
@@ -31,6 +31,16 @@ Route::group(['prefix'=>'projects', 'where'=>['id'=>'[0-9]+']], function() {
     Route::get('create', 'ProjectController@create');
     Route::post('', 'ProjectController@store');
     Route::get('delete/{id}', 'ProjectController@destroy');
+});
+
+Route::group(['prefix'=>'systems', 'where'=>['id'=>'[0-9]+']], function() {
+    Route::get('', 'SystemController@index');
+    Route::get('{id}', 'SystemController@show');
+    Route::get('{id}/edit','SystemController@edit');
+    Route::put('{id}','SystemController@update')->name('systems.update');;
+    Route::get('create', 'SystemController@create');
+    Route::post('', 'SystemController@store');
+    Route::get('delete/{id}', 'SystemController@destroy');
 });
 
 Auth::routes();

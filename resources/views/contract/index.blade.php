@@ -27,9 +27,9 @@
                     <td>{{ $c->value }}</td>
                     <td>{{ \itmanagement\Client::find($c->client_id)->name }}</td>
                     <td>
-                        <a href="{{action('ContractController@show', $c->id)}}">
-                            <span class="glyphicon glyphicon-search icon-option" aria-hidden="true"></span>
-                        </a>
+                        {{--<a href="{{action('ContractController@show', $c->id)}}">--}}
+                            {{--<span class="glyphicon glyphicon-search icon-option" aria-hidden="true"></span>--}}
+                        {{--</a>--}}
                         <a href="{{action('ContractController@edit', $c->id)}}">
                             <span class="glyphicon glyphicon-pencil icon-option"></span>
                         </a>

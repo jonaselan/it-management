@@ -27,7 +27,7 @@ $factory->define(itmanagement\User::class, function (Faker $faker) {
 
 $factory->define(itmanagement\Client::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->company,
         'address' => $faker->address,
         'cnpj' => "000.000.000-00",
         'phone' => $faker->phoneNumber,
@@ -51,6 +51,17 @@ $factory->define(itmanagement\Project::class, function (Faker $faker) {
         'name' => $faker->firstName,
         'client_id' => function () {
             return factory(itmanagement\Client::class)->create()->id;
+        }
+    ];
+});
+
+$factory->define(itmanagement\System::class, function (Faker $faker) {
+    return [
+        'name' => $faker->firstName,
+        'description' => $faker->realText(30),
+        'type' => 'web',
+        'project_id' => function () {
+            return factory(itmanagement\Project::class)->create()->id;
         }
     ];
 });
