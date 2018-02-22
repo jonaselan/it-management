@@ -8,11 +8,22 @@
 </div>
 <div class="form-group">
     {!! Form::label('type', 'Tipo:') !!}
-    {!! Form::text('type', null, ['class'=>'form-control']) !!}
+    <div class="radio">
+        <label>{!! Form::radio('type', 'web') !!}Web</label>
+    </div>
+    <div class="radio">
+        <label>{!! Form::radio('type', 'desktop') !!}Desktop</label>
+    </div>
+    <div class="radio">
+        <label>{!! Form::radio('type', 'mobile') !!}Mobile</label>
+    </div>
 </div>
 <div class="form-group">
     {!! Form::label('project_id', 'Projeto:') !!}
-    {!! Form::select('project_id', $projects_options, $system->product_id, array('class' => 'form-control')) !!}
+    {!! Form::select('project_id',
+                    $projects_options,
+                    isset($system) ? $system->product_id : null,
+                    array('class' => 'form-control')) !!}
 </div>
 
 <div class="form-group">
