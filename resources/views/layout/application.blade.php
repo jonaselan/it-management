@@ -78,7 +78,7 @@
     </footer>
     </body>
 
-    <script src="js/app.js" type="text/javascript"></script>
+    <script src="{{mix('js/app.js')}}" type="text/javascript"></script>
     <script>
         $('div.alert').not('.alert-important').delay(4000).fadeOut(450);
     </script>

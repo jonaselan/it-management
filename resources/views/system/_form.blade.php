@@ -12,8 +12,7 @@
 </div>
 <div class="form-group">
     {!! Form::label('project_id', 'Projeto:') !!}
-    {!! Form::select('project_id', itmanagement\Project::all()->pluck('name', 'id')->all(), ['class'=>'form-control']) !!}
-
+    {!! Form::select('project_id', $projects_options, $system->product_id, array('class' => 'form-control')) !!}
 </div>
 
 <div class="form-group">

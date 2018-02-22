@@ -3,6 +3,7 @@
 namespace itmanagement\Http\Controllers;
 
 use itmanagement\System;
+use itmanagement\Repositories\Contracts\iProjectRepository;
 use itmanagement\Http\Requests\SystemRequest;
 use Request;
 use Auth;
@@ -20,8 +21,13 @@ class SystemController extends Controller
         return view('system.index')->withSystems($systems);
     }
 
-    public function create(){
-        return view('system.create');
+    public function create(iProjectRepository $repository){
+        $projects = $repository
+                        ->find([['client_id', '=', Auth::user()->client_id]])
+                        ->pluck('name', 'id');
+
+        return view('system.create')
+            ->with('projects_options', $projects);
     }
 
     public function store(SystemRequest $request){
@@ -40,9 +46,14 @@ class SystemController extends Controller
             ->action('SystemController@index');
     }
 
-    public function edit($id){
+    public function edit($id, iProjectRepository $repository){
         $system = System::find($id);
-        return view('system.edit', compact('system'));
+        $projects = $repository
+            ->find([['client_id', '=', Auth::user()->client_id]])
+            ->pluck('name', 'id');
+
+        return view('system.edit', compact('system'))
+            ->with('projects_options', $projects);
     }
 
     public function update(SystemRequest $request, $id){

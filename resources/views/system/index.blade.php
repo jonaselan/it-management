@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ $s->name }} </td>
                     <td>{{ $s->type }} </td>
-                    <td> -- </td>
+                    <td>{{ \itmanagement\Project::find($s->project_id)->name }}</td>
                     <td>
                         {{--<a href="{{action('SystemController@show', $s->id)}}">--}}
                             {{--<span class="glyphicon glyphicon-search icon-option" aria-hidden="true"></span>--}}
