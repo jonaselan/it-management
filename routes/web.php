@@ -11,7 +11,10 @@
 |
 */
 
+Auth::routes();
+Route::get('/', 'HomeController@index');
 Route::get('/clients', 'ClientController@index');
+Route::get('/admin', 'AdminController@index');
 
 Route::group(['prefix'=>'contracts', 'where'=>['id'=>'[0-9]+']], function() {
     Route::get('', 'ContractController@index');
@@ -42,6 +45,3 @@ Route::group(['prefix'=>'systems', 'where'=>['id'=>'[0-9]+']], function() {
     Route::post('', 'SystemController@store');
     Route::get('delete/{id}', 'SystemController@destroy');
 });
-
-Auth::routes();
-Route::get('/', 'HomeController@index');

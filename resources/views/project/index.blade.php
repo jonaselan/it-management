@@ -5,9 +5,9 @@
             <div class="col-md-6">
                 <h1>Meus Projetos</h1>
             </div>
-            {{--<div class="col-md-3">
+            <div class="col-md-3">
               <a href="{{route('new_evaluation')}}">Criar avaliação</a>
-            </div>--}}
+            </div>
             <div class="col-md-3">
                 <a href="{{ action('ProjectController@create')}}">Criar projeto</a>
             </div>

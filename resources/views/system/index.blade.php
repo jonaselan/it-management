@@ -2,12 +2,9 @@
 @section('content')
     @if($systems)
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <h1>Meus Sistemas</h1>
             </div>
-            {{--<div class="col-md-3">
-              <a href="{{route('new_evaluation')}}">Criar avaliação</a>
-            </div>--}}
             <div class="col-md-3">
                 <a href="{{ action('SystemController@create')}}">Criar sistema</a>
             </div>
