@@ -3,16 +3,19 @@
 namespace itmanagement\Http\Controllers;
 
 use Illuminate\Http\Request;
+use itmanagement\Client;
 
 class ClientController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     public function index()
     {
-        return view("clients.index");
+        $clients = Client::simplePaginate(7);
+
+        return view('clients.index')->withClients($clients);
     }
 }
