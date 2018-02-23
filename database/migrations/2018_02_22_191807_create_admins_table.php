@@ -19,8 +19,6 @@ class CreateAdminsTable extends Migration
             $table->string('email')->unique();
             $table->string('job_title');
             $table->string('password');
-            $table->integer('client_id')->unsigned();
-            $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });
     }
