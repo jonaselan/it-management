@@ -24,11 +24,12 @@ class AdminLoginController extends Controller
            'password' => 'required|min:6'
         ]);
 
-        // Attempt to log the user in
+        // Attempt to log the user as admin
         $credentials = ['email' => $request->email, 'password' => $request->password];
         if (Auth::guard('admin')->attempt($credentials, $request->remember)){
             // If successful, then redirect to their intended location
-            return redirect()->intended(route('admin.dashboard')); //intended return to de page where the user try to access before to login in
+            // INTENDED return to the page where the user try to access before to login in
+            return redirect()->intended(route('admin.dashboard'));
         }
         else {
             // If unsuccessful, then redirect back the login with the form data

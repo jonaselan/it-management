@@ -11,16 +11,23 @@
 |
 */
 
-Auth::routes();
-Route::get('/', 'HomeController@index');
-Route::get('/clients', 'ClientController@index');
-
+Auth::routes(); // users authentication
 Route::prefix('admin')->group(function (){
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('', 'AdminController@index')->name('admin.dashboard');
 });
+Route::get('/', 'HomeController@index');
 
+Route::group(['prefix'=>'clients', 'where'=>['id'=>'[0-9]+']], function() {
+    Route::get('', 'ClientController@index');
+    Route::get('{id}', 'ClientController@show');
+    Route::get('{id}/edit','ClientController@edit');
+    Route::put('{id}','ClientController@update')->name('clients.update');;
+    Route::get('create', 'ClientController@create');
+    Route::post('', 'ClientController@store');
+    Route::get('delete/{id}', 'ClientController@destroy');
+});
 
 Route::group(['prefix'=>'contracts', 'where'=>['id'=>'[0-9]+']], function() {
     Route::get('', 'ContractController@index');

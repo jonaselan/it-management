@@ -2,7 +2,7 @@
 
 namespace itmanagement\Http\Controllers;
 
-use Illuminate\Http\Request;
+use itmanagement\Http\Requests\ClientRequest;
 use itmanagement\Client;
 
 class ClientController extends Controller
@@ -16,6 +16,41 @@ class ClientController extends Controller
     {
         $clients = Client::simplePaginate(7);
 
-        return view('clients.index')->withClients($clients);
+        return view('client.index')->withClients($clients);
     }
+
+    public function create(){
+        return view('client.create');
+    }
+
+    public function store(ClientRequest $request){
+        flash("Cliente criado com sucesso!");
+        Client::create($request->all());
+        return redirect()
+            ->action('ClientController@index');
+    }
+
+    public function destroy($id){
+        flash("Cliente removido com sucesso!");
+        Client::find($id)->delete();
+        return redirect()
+            ->action('ClientController@index');
+    }
+
+    public function edit($id){
+        $client = Client::find($id);
+        return view('client.edit', compact('client'));
+    }
+
+    public function update(ClientRequest $request, $id){
+        flash("Cliente editado com sucesso!");
+        Client::find($id)->update($request->all());
+        return redirect()
+            ->action('ClientController@index');
+    }
+
+//    public function show($id){
+//        $response = Client::find($id);
+//        return view('client.show')->with('p', $response);
+//    }
 }

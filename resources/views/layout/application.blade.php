@@ -37,7 +37,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @guest
-                        <li><a href="{{ route('admin.login') }}">Admin</a></li>
+                        <li><a href="{{ route('admin.dashboard') }}">Admin</a></li>
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
                     @else
