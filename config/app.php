@@ -65,6 +65,7 @@ return [
     |
     */
 
+    // maybe is necessary run php artisan config:cache when change here
     'timezone' => 'America/Recife',
 
     /*
