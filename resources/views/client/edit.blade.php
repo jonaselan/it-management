@@ -11,7 +11,7 @@
       </ul>
     @endif
 
-    {{ Form::model($client, ['method' => 'put', 'route' => ['clients.update', $client->id]]) }}
+    {{ Form::model($client, ['method' => 'put', 'route' => ['clients.update', $client->id], 'files' => true]) }}
         @include('client._form')
     {!! Form::close() !!}
   </div>

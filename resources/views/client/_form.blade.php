@@ -14,6 +14,10 @@
     {!! Form::label('address', 'Endereço:') !!}
     {!! Form::text('address', null, ['class'=>'form-control']) !!}
 </div>
+<div class="form-group">
+    {!! Form::label('logo', 'Logo:') !!}
+    {!! Form::file('logo') !!}
+</div>
 
 <div class="form-group">
     {!! Form::submit('Finalizar', ['class'=>'btn btn-primary']) !!}

@@ -4,6 +4,8 @@ namespace itmanagement\Http\Controllers;
 
 use itmanagement\Http\Requests\ClientRequest;
 use itmanagement\Client;
+use DateTime;
+use Storage;
 
 class ClientController extends Controller
 {
@@ -44,13 +46,24 @@ class ClientController extends Controller
 
     public function update(ClientRequest $request, $id){
         flash("Cliente editado com sucesso!");
+
+        $file = $request->file('logo');
+        if ($file){
+//            date_default_timezone_set('America/Recife');
+            $data = new DateTime();
+            $imageName = $data->format("Y-m-d").'.'.$file->getClientOriginalName();
+
+            $s3 = Storage::disk('s3');
+            $s3->put($imageName, file_get_contents($file));
+        }
+
         Client::find($id)->update($request->all());
         return redirect()
             ->action('ClientController@index');
     }
 
-//    public function show($id){
-//        $response = Client::find($id);
-//        return view('client.show')->with('p', $response);
+//    public function storeFile(Request $request)
+//    {
+//
 //    }
 }
