@@ -16,7 +16,7 @@ class SystemController extends Controller
     }
 
     public function index(){
-        $systems = System::simplePaginate(7);
+        $systems = System::latest()->simplePaginate(7);
 
         return view('system.index')->withSystems($systems);
     }

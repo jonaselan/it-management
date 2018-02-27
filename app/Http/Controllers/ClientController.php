@@ -4,7 +4,10 @@ namespace itmanagement\Http\Controllers;
 
 use itmanagement\Http\Requests\ClientRequest;
 use itmanagement\Client;
-use Storage;
+use itmanagement\Logo;
+use Aws\S3\S3Client;
+use Aws\Exception\AwsException;
+use \Exception;
 
 class ClientController extends Controller
 {
@@ -15,8 +18,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        $clients = Client::simplePaginate(7);
-
+        $clients = Client::latest()->simplePaginate(7);
         return view('client.index')->withClients($clients);
     }
 
@@ -40,17 +42,44 @@ class ClientController extends Controller
 
     public function edit($id){
         $client = Client::find($id);
-        return view('client.edit', compact('client'));
+        $result = null;
+
+        try {
+            $key = $client->logos()->first()->path;
+            $s3Client = new S3Client([
+                'region' => env('AWS_DEFAULT_REGION'),
+                'version'=> env('AWS_API_VERSION')
+            ]);
+            $result = $s3Client->getObject([
+                'Bucket' => env('AWS_BUCKET'),
+                'Key'    => $key
+            ]);
+        }catch (AwsException $e) {
+            report($e);
+        }catch (Exception $e){
+            report($e);
+        }
+
+        return view('client.edit', compact('client'))
+                    ->with('logo', $result['@metadata']['effectiveUri']);
     }
 
     public function update(ClientRequest $request, $id){
         flash("Cliente editado com sucesso!");
+        $client = Client::find($id);
+        $client->update($request->all());
 
         $file = $request->file('logo');
-        // TODO: move to repository
-        $file->store('');
+        if (!is_null($file) && $path = $file->store('images')) {
+            // TODO: move to repository
+            $logo = new Logo();
+            $logo->name = $file->getClientOriginalName();
+            $logo->path = $path;
+            $logo->uploadable_id = $client->id;
+            $logo->uploadable_type = 'itmanagement\Client';
+            $logo->save();
+        }
 
-        Client::find($id)->update($request->all());
         return redirect()
             ->action('ClientController@index');
     }

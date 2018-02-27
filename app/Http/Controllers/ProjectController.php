@@ -19,7 +19,7 @@ class ProjectController extends Controller
         // If use repository, remember to get element with ->get(), and the end
         $projects = $repository
                         ->find([['client_id', '=', Auth::user()->client_id]],
-                                [['created_at', 'asc']]);
+                                [['created_at', 'desc']]);
 
         return view('project.index')
                     ->withProjects($projects->simplePaginate(10));
