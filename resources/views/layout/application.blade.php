@@ -7,8 +7,6 @@
 
         <title>{{ config('itmanament.name', 'IT Management') }}</title>
         <link rel="stylesheet" type="text/css" href="{{mix('css/app.css')}}">
-        <link href="/css/custom.css" rel="stylesheet">
-        <link href="/css/welcome.css" rel="stylesheet">
     </head>
     <body>
     <nav class="navbar navbar-default navbar-static-top">
