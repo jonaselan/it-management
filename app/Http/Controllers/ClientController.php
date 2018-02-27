@@ -4,7 +4,8 @@ namespace itmanagement\Http\Controllers;
 
 use itmanagement\Http\Requests\ClientRequest;
 use itmanagement\Client;
-use itmanagement\Logo;
+//use itmanagement\Logo;
+use itmanagement\Repositories\Contracts\iLogoRepository;
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use \Exception;
@@ -64,21 +65,13 @@ class ClientController extends Controller
                     ->with('logo', $result['@metadata']['effectiveUri']);
     }
 
-    public function update(ClientRequest $request, $id){
+    public function update(iLogoRepository $repository, ClientRequest $request, $id){
         flash("Cliente editado com sucesso!");
         $client = Client::find($id);
         $client->update($request->all());
 
-        $file = $request->file('logo');
-        if (!is_null($file) && $path = $file->store('images')) {
-            // TODO: move to repository
-            $logo = new Logo();
-            $logo->name = $file->getClientOriginalName();
-            $logo->path = $path;
-            $logo->uploadable_id = $client->id;
-            $logo->uploadable_type = 'itmanagement\Client';
-            $logo->save();
-        }
+        if (!$repository->upload($request, $client))
+            flash("Problemas ao salvar logo!");
 
         return redirect()
             ->action('ClientController@index');
