@@ -12,7 +12,10 @@ trait LogoTrait
         return $file->store($namespace);
     }
 
-    public function retrieve($model){
+    public function retrieve($model = null){
+        if (empty($model))
+            return null;
+
         $result = null;
         try {
             $key = $model->logos()->first()->path;

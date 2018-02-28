@@ -23,12 +23,17 @@ class ClientController extends Controller
     }
 
     public function create(){
-        return view('client.create');
+        return view('client.create')
+                ->with('logo', $this->retrieve());
     }
 
-    public function store(ClientRequest $request){
-        flash("Cliente criado com sucesso!");
-        Client::create($request->all());
+    public function store(ClientRequest $request, iLogoRepository $repository){
+        if ($client = Client::create($request->all())) {
+            flash("Cliente criado com sucesso!");
+            if (!$repository->store($request, $client))
+                flash("Problemas ao salvar logo!");
+        }
+
         return redirect()
             ->action('ClientController@index');
     }
