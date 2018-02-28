@@ -1,58 +1,130 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## It Management
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+O tutorial aqui apresentado segue a [documentação oficial do laradock](http://laradock.io/getting-started/) e aborda o básico para rodar esse projeto ou um projeto laravel qualquer.
 
-## About Laravel
+### 1 - Faça o clone do laradock
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+```bash
+git clone https://github.com/laradock/laradock
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2 - Copie o `.env`
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+Há um exemplo do arquivo de configuração que deve ser tomado como exemplo. Para isso utilize o comando:
 
-## Learning Laravel
+```bash
+cp env-example .env
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+### 3 - Configurar o `.env`
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+Aqui é onde vai ser definido os softwares necessários para o desenvolvimento do projeto. Eles irão ser referenciadas no `docker-compose.yml`, então se for do seu interesse, pode verificar nesse arquivo também. Abaixo é exposto o modelo de como o seu .env deve estar:
 
-## Laravel Sponsors
+``` 
+### Application Path 
+# Se código estará disponivel em `/var/www`.
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+APPLICATION=../
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+### PHP Version
+PHP_VERSION=71
+[...]
 
-## Contributing
+### WORKSPACE 
+WORKSPACE_INSTALL_XDEBUG=true
+[...]
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### PHP_FPM 
+PHP_FPM_INSTALL_XDEBUG=true
+[...]
 
-## Security Vulnerabilities
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4 - Configurar ngix
+Dentro do diretório que você baixou, vá até `ngix/sites`. Lá existem alguns exemplos de como podem ser feito o redirecionamento para diferentes projetos de acordo com o domínio. Crie ou edite algum, com a extensão `.conf` (e não `.example.conf`).
 
-## License
+Dentro desse novo arquivo, você vai precisar alterar somente duas linhas: `server_name` e `root`. No primeiro você deve colocar o host de sua aplicação (no que você vai conseguir acessar atráves do navegador) e no segundo o mapeamento. Por exemplo, se o sistema for *PROJETO*, o seu arquivo `PROJETO.conf` ficara assim:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+[...]
+    server_name PROJETO.test;
+    root /var/www/PROJETO/public;
+[...]
+```
+
+Lembrando que o diretorio do seu projeto deve estar no mesmo que o laradock, para que o mapeamento seja feito com sucesso, dessa forma:
+
+```
+  + laradock
+  + PROJETO
+     - index.html
+```
+
+### 5 - Adicione o hosts
+
+Vá até o `/etc/hosts` na sua máquina local e adicione os hosts que você colocou em `PROJETO.conf`
+
+```
+127.0.0.1  PROJETO.test
+...
+```
+
+### 6 - Construir e rodar ambiente 
+
+Nesse exemplo você verá o NGINX (web server) e o Postgres (banco de dados) 
+
+```bash
+docker-compose up -d nginx postgres
+```
+
+Mas você pode levantar quantos quantos você quiser
+
+### 7 - Acesse no navegador 
+
+No endereço `http://PROJETO.test` você deverá ver o conteúdo do index. Se isso ocorre, está tudo pronto :)
+
+## Novo por aqui?
+
+Se você pretende criar um novo projeto, é importante prestar atenção em alguns detalhes:
+
+1 - Sempre que você subir seu container utilize o comando `docker-compose exec workspace bash`, para executar outros comandos como compose e gulp
+
+2 - Quando entrar no container workspace, não execute comandos compose como root, em vez disso crie um usuário, por exemplo:
+
+```bash
+# criar 
+passwd laradock
+
+# logar 
+login laradock
+```
+E lembre sempre de logar, quando subir o workspace novamente
+
+3 - Para criar um novo projeto laravel use:
+
+```bash
+composer create-project laravel/laravel NOME-PROJETO
+```
+
+## Clonando projeto laravel
+
+Quando você clona um projeto laravel para sua máquina, alguns arquivos/pastas essências para a execução perfeita do projeto não são baixados, como o arquivo `.env` (contem as variáveis de ambiente, que pode mudar de acordo com cada ambiente, por isso não é recomendavél versiona-la) e o diretorio vendor (é onde fica o source code laravel, plugins e outras dependências. Tudo que você usar de terceiros fica aqui). Logo é preciso executar alguns comandos para gerar no seu ambiente.
+
+```bash
+composer install
+
+# você deve adaptar o .env para suas necessidades, como o banco de dados (DB_DATABASE, DB_USERNAME, etc)
+cp .env.example .env
+
+# gera key unica da sua aplicação, por questões de segurança
+php artisan key:generate
+
+# rodar migration
+php artisan migrate
+
+# outras dependências
+npm install
+
+# compilar assets
+npm run watch
+```
