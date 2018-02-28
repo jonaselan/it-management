@@ -18,7 +18,7 @@ cp env-example .env
 
 ### 3 - Configurar o `.env`
 
-Aqui é onde vai ser definido os softwares necessários para o desenvolvimento do projeto. Eles irão ser referenciadas no `docker-compose.yml`, então se for do seu interesse, pode verificar nesse arquivo também. Abaixo é exposto o modelo de como o seu .env deve estar:
+Aqui é onde vai ser definido os softwares necessários para o desenvolvimento do projeto. Eles irão ser referenciados no `docker-compose.yml`, então se for do seu interesse, pode verificar nesse arquivo também. Abaixo é exposto o modelo de como o seu `.env` deve estar:
 
 ``` 
 ### Application Path 
@@ -43,7 +43,7 @@ PHP_FPM_INSTALL_XDEBUG=true
 ### 4 - Configurar ngix
 Dentro do diretório que você baixou, vá até `ngix/sites`. Lá existem alguns exemplos de como podem ser feito o redirecionamento para diferentes projetos de acordo com o domínio. Crie ou edite algum, com a extensão `.conf` (e não `.example.conf`).
 
-Dentro desse novo arquivo, você vai precisar alterar somente duas linhas: `server_name` e `root`. No primeiro você deve colocar o host de sua aplicação (no que você vai conseguir acessar atráves do navegador) e no segundo o mapeamento. Por exemplo, se o sistema for *PROJETO*, o seu arquivo `PROJETO.conf` ficara assim:
+Nesse novo arquivo, você vai precisar alterar somente duas linhas: `server_name` e `root`. No primeiro você deve colocar o host de sua aplicação (no que você vai conseguir acessar atráves do navegador) e no segundo o mapeamento. Por exemplo, se o sistema for *PROJETO*, o seu arquivo `PROJETO.conf` ficara assim:
 
 ```
 [...]
