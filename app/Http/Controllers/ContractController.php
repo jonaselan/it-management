@@ -15,10 +15,12 @@ class ContractController extends Controller
     }
 
     public function index(){
-        $contracts = Contract::where('client_id', Auth::user()->client_id)
-                                ->simplePaginate(7);
+        $contracts = Contract::latest()
+                            ->where('client_id', Auth::user()->client_id)
+                            ->simplePaginate(7);
 
-        return view('contract.index')->withContracts($contracts);
+        return view('contract.index')
+                ->withContracts($contracts);
     }
 
     public function create(){

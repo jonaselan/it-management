@@ -11,7 +11,7 @@
       </ul>
     @endif
 
-    {!! Form::open(['url'=>"systems", 'method'=>'post'])!!}
+    {!! Form::open(['url'=>"systems", 'method'=>'post', 'files' => true])!!}
         @include('system._form')
     {!! Form::close() !!}
   </div>

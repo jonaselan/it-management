@@ -25,6 +25,7 @@ class ClientRequest extends FormRequest
     {
         return [
             'name' => 'required|max:100',
+            'logo' => 'required|mimes:jpeg,png,jpg,gif,svg',
             'cnpj' => 'required|max:20'
         ];
     }

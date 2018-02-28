@@ -25,6 +25,7 @@ class SystemRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'logo' => 'required|mimes:jpeg,png,jpg,gif,svg',
             'project_id' => 'required'
         ];
     }

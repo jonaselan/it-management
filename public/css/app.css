@@ -8350,3 +8350,82 @@ button.close {
   }
 }
 
+.logo-content .logo {
+  height: 100px;
+}
+
+nav.navbar.navbar-default {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+nav.navbar.navbar-default a {
+  color: #000000;
+}
+
+li p.navbar-text,
+a.navbar-brand {
+  color: white !important;
+  font-weight: bolder;
+}
+
+footer.footer {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  margin-top: 55px;
+  color: white;
+  border-radius: 5px;
+}
+
+footer.footer p {
+  padding: 10px;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+.flex-center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.position-ref {
+  position: relative;
+}
+
+.top-right {
+  position: absolute;
+  right: 10px;
+  top: 18px;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  font-size: 84px;
+}
+
+.links > a {
+  color: #636b6f;
+  padding: 0 25px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.m-b-md {
+  margin-bottom: 30px;
+}
+

@@ -27,5 +27,15 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('logo', 'Logo:') !!}
+    <div class="logo-content">
+        @if($logo)
+            <img class="logo" src="{!! url($logo) !!}" />
+        @endif
+    </div>
+    {!! Form::file('logo') !!}
+</div>
+
+<div class="form-group">
     {!! Form::submit('Finalizar', ['class'=>'btn btn-primary']) !!}
 </div>
