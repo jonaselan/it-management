@@ -4,14 +4,13 @@ namespace itmanagement\Http\Controllers;
 
 use itmanagement\Http\Requests\ClientRequest;
 use itmanagement\Client;
-//use itmanagement\Logo;
 use itmanagement\Repositories\Contracts\iLogoRepository;
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
-use \Exception;
+use itmanagement\Traits\LogoTrait;
 
 class ClientController extends Controller
 {
+    use LogoTrait;
+
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -43,26 +42,8 @@ class ClientController extends Controller
 
     public function edit($id){
         $client = Client::find($id);
-        $result = null;
-
-        try {
-            $key = $client->logos()->first()->path;
-            $s3Client = new S3Client([
-                'region' => env('AWS_DEFAULT_REGION'),
-                'version'=> env('AWS_API_VERSION')
-            ]);
-            $result = $s3Client->getObject([
-                'Bucket' => env('AWS_BUCKET'),
-                'Key'    => $key
-            ]);
-        }catch (AwsException $e) {
-            report($e);
-        }catch (Exception $e){
-            report($e);
-        }
-
         return view('client.edit', compact('client'))
-                    ->with('logo', $result['@metadata']['effectiveUri']);
+                    ->with('logo', $this->retrieve($client));
     }
 
     public function update(iLogoRepository $repository, ClientRequest $request, $id){
@@ -70,7 +51,7 @@ class ClientController extends Controller
         $client = Client::find($id);
         $client->update($request->all());
 
-        if (!$repository->upload($request, $client))
+        if (!$repository->store($request, $client))
             flash("Problemas ao salvar logo!");
 
         return redirect()

@@ -4,9 +4,11 @@ namespace itmanagement\Repositories;
 
 use itmanagement\Repositories\Contracts\iLogoRepository;
 use itmanagement\Logo;
+use itmanagement\Traits\LogoTrait;
 
 class LogoRepository implements iLogoRepository
 {
+    use LogoTrait;
     private $logo;
 
     public function __construct(Logo $logo)
@@ -14,12 +16,11 @@ class LogoRepository implements iLogoRepository
         $this->logo = $logo;
     }
 
-    public function upload($request, $model){
+    public function store($request, $model){
         $logo = $this->logo;
 
         $file = $request->file('logo');
-        if (!is_null($file) && $path = $file->store('images')) {
-//            $logo = new Logo();
+        if (!is_null($file) && $path = $this->upload($file)) {
             $logo->name = $file->getClientOriginalName();
             $logo->path = $path;
             $logo->uploadable_id = $model->id;
@@ -27,9 +28,6 @@ class LogoRepository implements iLogoRepository
             return $logo->save();
         }
         return false;
-    }
-
-    public function retrieve(){
     }
 }
 
