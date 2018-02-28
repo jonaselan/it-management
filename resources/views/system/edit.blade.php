@@ -11,7 +11,7 @@
       </ul>
     @endif
 
-    {{ Form::model($system, ['method' => 'put', 'route' => ['systems.update', $system->id]]) }}
+    {{ Form::model($system, ['method' => 'put', 'route' => ['systems.update', $system->id], 'files' => true]) }}
         @include('system._form')
     {!! Form::close() !!}
   </div>
