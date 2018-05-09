@@ -1,0 +1,3 @@
+[submodule "laradockit"]
+	path = laradockit
+	url = git@github.com:laradock/laradock.git
